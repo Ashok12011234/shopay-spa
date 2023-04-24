@@ -1,0 +1,30 @@
+version: "3"
+
+networks:
+  mynetwork:
+    name: mynetwork
+    driver: bridge
+
+services:
+  myapp:
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  oauth2-proxy:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - mynetwork
+    depends_on:
+      - myapp
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+
