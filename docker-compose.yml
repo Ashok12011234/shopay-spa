@@ -7,16 +7,14 @@ networks:
 
 services:
   myapp:
-    build: .
+    build: /frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
     networks:
       - mynetwork
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-
+      
   oauth2-proxy:
-    build: .
+    build: /proxy
     restart: always
     ports:
       - "8000:8000"
@@ -24,7 +22,6 @@ services:
       - mynetwork
     depends_on:
       - myapp
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+   
 
 
