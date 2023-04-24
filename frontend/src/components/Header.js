@@ -26,13 +26,7 @@ const Header = () => {
     });
   }, []);
 
-  const logout = () => {
-    Axios.get("http://localhost:8000/oauth2/sign_out").then((response) => {
-      console.log(response.data);
-    });
-    setIsLoggedIn(false);
-    window.location.href = "http://localhost:8000/home";
-  };
+  
 
   return (
     <header>
@@ -56,7 +50,7 @@ const Header = () => {
                   {email}
                 </Nav.Link>
               ) : (
-                <Nav.Link href="http://localhost:8000/oauth2/sign_in">
+                <Nav.Link href="http://localhost:8000/oauth2/sign_in?rd=/home">
                   <i className="fas fa-user"></i> {email}
                 </Nav.Link>
               )}
@@ -75,10 +69,12 @@ const Header = () => {
                     </Nav.Link>
                   </LinkContainer>
 
-                  <button className="btn btn-dark rounded" onClick={logout}>
-                    <i class="fas fa-sign-out-alt"></i>
-                    Logout
-                  </button>
+                 
+                    <Nav.Link href="http://localhost:8000/oauth2/sign_out?rd=/home">
+                      <i class="fas fa-sign-out-alt"></i>
+                      Logout
+                    </Nav.Link>
+                 
                 </>
               ) : null}
             </Nav>
