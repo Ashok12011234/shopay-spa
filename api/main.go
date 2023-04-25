@@ -3,8 +3,6 @@ package main
 import (
 	"log"
 	"net/http"
-	
-	"fmt"
  )
 
  
@@ -25,8 +23,6 @@ func main()  {
 
 
 func handlePage(writer http.ResponseWriter, request *http.Request) {
-	fmt.Printf("Req: %s %s\n", request.Host, request.URL.Path) 
-	
 	
 
 	header := request.Header.Get("Authorization")
