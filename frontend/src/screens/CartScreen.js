@@ -25,11 +25,6 @@ const CartScreen = ({ match, location, history }) => {
     dispatch(removeFromCart(id))
   }
 
-  const checkoutHandler = () => {
-    //TODO Go to checkout screen
-    history.push('/login?redirect=shipping')
-  }
-
   return (
     <Row>
       <Col md={8}>
@@ -100,7 +95,7 @@ const CartScreen = ({ match, location, history }) => {
                 type='button'
                 className='btn-block'
                 disabled={cartItems.length === 0}
-                onClick={checkoutHandler}
+               
               >
                 Proceed To Checkout
               </Button>

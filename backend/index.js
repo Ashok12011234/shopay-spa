@@ -2,7 +2,7 @@ const express=require('express')
 const bodyParser =require('body-parser');
 const cors=require('cors')
 const app=express()
-const mysql=require('mysql')
+const mysql=require('mysql2')
 const axios = require("axios");
 const path = require('path');
 
