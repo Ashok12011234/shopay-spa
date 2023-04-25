@@ -9,7 +9,7 @@ const HomeScreen = () => {
   const [products,setProducts]=useState([]);
 
   useEffect(()=>{
-    Axios.get('http://localhost:8000/api/get').then((response)=>{
+    Axios.get('/api/get').then((response)=>{
       setProducts(response.data);
       console.log(response.data)
     })
