@@ -6,22 +6,54 @@ networks:
     driver: bridge
 
 services:
-  myapp:
-    build: /frontend
-    ports:
-      - "3000:80"
-    networks:
-      - mynetwork
-      
+  
   oauth2-proxy:
-    build: /proxy
+    build: ./proxy
     restart: always
     ports:
       - "8000:8000"
     networks:
       - mynetwork
-    depends_on:
-      - myapp
+    
+      
    
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: shopay
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    networks:
+      - mynetwork
+    ports:
+      - "3308:3306"
+  
+  admin:    
+    image: adminer    
+    ports:      
+      - "8080:8080"
+    networks:
+      - mynetwork
+  
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+      - oauth2-proxy
+    networks:
+      - mynetwork
+    command: sh -c "sleep 10 && node index.js"
+  
+  myapp:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    networks:
+      - mynetwork
+    depends_on:
+      - backend
 
-
+      

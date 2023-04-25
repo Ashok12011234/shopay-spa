@@ -8,7 +8,7 @@ const Header = () => {
   const [email, setEmail] = useState("signin");
 
   useEffect(() => {
-    Axios.get("http://localhost:8000/oauth2/userinfo").then((response) => {
+    Axios.get("/oauth2/userinfo").then((response) => {
       setEmail(response.data["email"]);
       //console.log(response.data);
     });
@@ -17,7 +17,7 @@ const Header = () => {
   const [isLoggedin, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    Axios.get("http://localhost:8000/oauth2/auth").then((response) => {
+    Axios.get("/oauth2/auth").then((response) => {
       if (response.status === 202) {
         setIsLoggedIn(true);
       }
@@ -50,7 +50,7 @@ const Header = () => {
                   {email}
                 </Nav.Link>
               ) : (
-                <Nav.Link href="http://localhost:8000/oauth2/sign_in?rd=/home">
+                <Nav.Link href="/oauth2/sign_in?rd=/home">
                   <i className="fas fa-user"></i> {email}
                 </Nav.Link>
               )}
@@ -70,7 +70,7 @@ const Header = () => {
                   </LinkContainer>
 
                  
-                    <Nav.Link href="http://localhost:8000/oauth2/sign_out?rd=/home">
+                    <Nav.Link href="/oauth2/sign_out?rd=/home">
                       <i class="fas fa-sign-out-alt"></i>
                       Logout
                     </Nav.Link>

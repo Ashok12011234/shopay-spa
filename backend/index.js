@@ -7,9 +7,9 @@ const axios = require("axios");
 const path = require('path');
 
 const db=mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
+    host: 'db',
+    user: 'user',
+    password: 'pass',
     database: 'shopay',
     port:'3306'
   })

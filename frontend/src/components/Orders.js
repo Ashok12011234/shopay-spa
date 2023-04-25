@@ -6,7 +6,7 @@ const Orders = () => {
   const [orders, setProducts] = useState([]);
 
   useEffect(() => {
-    Axios.get("http://localhost:8000/api/orders").then((response) => {
+    Axios.get("/api/orders").then((response) => {
       setProducts(response.data);
       console.log(response.data);
     });

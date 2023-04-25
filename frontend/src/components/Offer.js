@@ -7,7 +7,7 @@ const Offer = () => {
   const [offer, setOffer] = useState([]);
 
   useEffect(() => {
-    Axios.get("http://localhost:8000/api/offers").then((response) => {
+    Axios.get("/api/offers").then((response) => {
       setOffer(response.data);
       console.log(response.data);
     });
