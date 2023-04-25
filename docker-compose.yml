@@ -43,6 +43,7 @@ services:
     depends_on:
       - db
       - oauth2-proxy
+      - api
     networks:
       - mynetwork
     command: sh -c "sleep 10 && node index.js"
@@ -55,5 +56,11 @@ services:
       - mynetwork
     depends_on:
       - backend
-
+     
+  api:
+    build: ./api
+    ports:
+      - "4001:4001"
+    networks:
+      - mynetwork  
       

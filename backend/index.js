@@ -26,9 +26,6 @@ db.connect((err) => {
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended:true}));
-// 👇️ serving static files from build directory
-app.use(express.static(path.join(__dirname, 'build')));
-//app.use(express.static(__dirname)); //here is important thing - no static directory, because all static :)
 
 
 
@@ -101,7 +98,7 @@ app.get('/api/orders', (req, res) => {
 
 
 app.get('/api/offers', (req, res) => {
-  axios.get('http://localhost:4001', {
+  axios.get('http://api:4001', {
     headers: req.headers,
   })
     .then(response => {
@@ -114,10 +111,7 @@ app.get('/api/offers', (req, res) => {
     });
 });
 
-// 👇️ catch-all route
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+
 
 app.listen(3001,()=>{
 
