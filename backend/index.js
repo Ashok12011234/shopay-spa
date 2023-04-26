@@ -7,11 +7,11 @@ const axios = require("axios");
 const path = require('path');
 
 const db=mysql.createConnection({
-    host: 'db',
-    user: 'user',
-    password: 'pass',
-    database: 'shopay',
-    port:'3306'
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
+    port:process.env.PORT
   })
 
   // Connect to the database
@@ -98,7 +98,7 @@ app.get('/api/orders', (req, res) => {
 
 
 app.get('/api/offers', (req, res) => {
-  axios.get('http://api:4001', {
+  axios.get(process.env.URL, {
     headers: req.headers,
   })
     .then(response => {
