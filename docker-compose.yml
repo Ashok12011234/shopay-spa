@@ -8,15 +8,33 @@ networks:
 services:
   
   oauth2-proxy:
-    build: ./proxy
-    restart: always
+    image: quay.io/oauth2-proxy/oauth2-proxy
     ports:
       - "8000:8000"
+    command:
+      - --http-address
+      - :8000
+      - --upstream
+      - http://myapp:80,http://backend:3001/api/orders,http://backend:3001/api/offers,http://backend:3001/api/get,http://backend:3001/api/getProduct,http://backend:3001/api/getCustomAttribute,http://api:4001/secured_api
+    environment:
+      OAUTH2_PROXY_CLIENT_ID: 
+      OAUTH2_PROXY_CLIENT_SECRET: 
+      OAUTH2_PROXY_COOKIE_SECRET: 5S5wk5A5O6MkKfZZ
+      OAUTH2_PROXY_EMAIL_DOMAINS: "*"
+      OAUTH2_PROXY_PROVIDER: oidc
+      OAUTH2_PROXY_REDIRECT_URL: "http://localhost:8000/oauth2/callback"
+      OAUTH2_PROXY_OIDC_ISSUER_URL: "https://accounts.google.com"
+      OAUTH2_PROXY_SCOPE: openid email
+      OAUTH2_PROXY_SKIP_AUTH_REGEX: /home,/cart,/static/*,/product/*,/api/getProduct,/api/getCustomAttribute,/images/*,/api/get
+      OAUTH2_PROXY_SKIP_JWT_BEARER_TOKENS: true
+      OAUTH2_PROXY_PASS_ACCESS_TOKEN: true
+      OAUTH2_PROXY_PASS__AUTHORIZATION_HEADER: true
+      OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: true
     networks:
       - mynetwork
-    
+    depends_on:
+      - api
       
-   
   db:
     image: mysql
     environment:
@@ -40,10 +58,16 @@ services:
     build: ./backend
     ports:
       - "3001:3001"
+    environment:
+      HOST : db
+      PORT : 3306
+      USER : user
+      PASSWORD : pass
+      DATABASE : shopay
+      URL : http://oauth2-proxy:8000/secured_api
     depends_on:
       - db
       - oauth2-proxy
-      - api
     networks:
       - mynetwork
     command: sh -c "sleep 10 && node index.js"
@@ -52,6 +76,8 @@ services:
     build: ./frontend
     ports:
       - "3000:80"
+    environment:
+      HTTP_PROXY : "http://localhost:8000"
     networks:
       - mynetwork
     depends_on:

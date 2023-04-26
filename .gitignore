@@ -25,3 +25,5 @@ yarn-debug.log*
 yarn-error.log*
 
 frontend/oauth2-proxy.cfg
+proxy
+proxy/

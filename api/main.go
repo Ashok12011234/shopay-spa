@@ -10,7 +10,7 @@ import (
 func main()  {
 
 	 //handle /authorized route
-	 http.HandleFunc("/",handlePage )
+	 http.HandleFunc("/secured_api",handlePage )
 
 	 //listen to the port in 4001
 	 err :=http.ListenAndServe(":4001",nil)
