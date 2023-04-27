@@ -17,8 +17,8 @@ services:
       - --upstream
       - http://myapp:80,http://backend:3001/api/orders,http://backend:3001/api/offers,http://backend:3001/api/get,http://backend:3001/api/getProduct,http://backend:3001/api/getCustomAttribute,http://api:4001/secured_api
     environment:
-      OAUTH2_PROXY_CLIENT_ID: 
-      OAUTH2_PROXY_CLIENT_SECRET: 
+      OAUTH2_PROXY_CLIENT_ID: "880386795823-olrdr7047el8skubcoaa02avc13lql6b.apps.googleusercontent.com"
+      OAUTH2_PROXY_CLIENT_SECRET: "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"
       OAUTH2_PROXY_COOKIE_SECRET: 5S5wk5A5O6MkKfZZ
       OAUTH2_PROXY_EMAIL_DOMAINS: "*"
       OAUTH2_PROXY_PROVIDER: oidc
