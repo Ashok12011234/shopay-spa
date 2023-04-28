@@ -25,7 +25,7 @@ func main()  {
 func handlePage(writer http.ResponseWriter, request *http.Request) {
 	
 
-	header := request.Header.Get("Authorization")
+	header := request.Header.Get("x-forwarded-access-token")
 	
 	
 	 if (header != "") {

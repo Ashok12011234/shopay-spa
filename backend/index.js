@@ -81,7 +81,7 @@ app.get('/api/get', (req, res) => {
 });
 
 app.get('/api/orders', (req, res) => {
-  if (req.headers.authorization) { // Check if Authorization header exists
+  if (req.headers.hasOwnProperty('x-forwarded-access-token')) { // Check if Authorization header exists
     const sqlSelect = "SELECT * FROM shopay.order;";
     db.query(sqlSelect, (err, result) => {
       if (err) {
