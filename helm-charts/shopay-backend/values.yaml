@@ -82,9 +82,9 @@ tolerations: []
 affinity: {}
 
 env:
-  HOST : shopay-db
+  HOST : shopay-db-mysql
   PORT : 3306
-  USER : user
-  PASSWORD : pass
+  USER : root
+  PASSWORD : b0UH1nbRPf
   DATABASE : shopay
   URL : http://mydomain.com/spa_proxy/secured_api

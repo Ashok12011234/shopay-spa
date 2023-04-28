@@ -46,6 +46,9 @@ services:
       - mynetwork
     ports:
       - "3308:3306"
+    volumes:
+      - ./queries.sql:/queries.sql
+    command: ["--init-file", "/queries.sql"]
   
   admin:    
     image: adminer    
