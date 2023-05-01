@@ -8,9 +8,9 @@ config:
   # Add config annotations
   annotations: {}
   # OAuth client ID
-  clientID: "RgLEePU0YL7zFzGB7ECXOppt3qoa"
+  clientID: "880386795823-olrdr7047el8skubcoaa02avc13lql6b.apps.googleusercontent.com"
   # OAuth client secret
-  clientSecret: "5oNOC3jD_EHtJ2WUDi6jFgRlFpAa"
+  clientSecret: "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"
   # Create a new secret with the following command
   # openssl rand -base64 32 | head -c 32 | base64
   # Use an existing secret for OAuth2 credentials (see secret.yaml for required fields)
@@ -36,20 +36,25 @@ config:
   configFile: |-
     email_domains = [ "*" ]
     upstreams = [
-    "https://github.com",
-    "http://localhost:3001/api/orders",
-    "http://localhost:3001/api/offers",
-    "http://localhost:3002/api/requests",
-    "http://localhost:3001/api/get"]
+    "http://shopay-fe-spa-frontend.default.svc.cluster.local:80",
+    "http://shopay-backend.default.svc.cluster.local:3001/api/orders",
+    "http://shopay-backend.default.svc.cluster.local:3001/api/offers",
+    "http://shopay-backend.default.svc.cluster.local:3001/api/get",
+    "http://shopay-backend.default.svc.cluster.local:3001/api/getProduct",
+    "http://shopay-backend.default.svc.cluster.local:3001/api/getCustomAttribute",
+    "http://shopay-api.default.svc.cluster.local:4001/secured_api"]
     provider = "oidc"
     provider_display_name="Asgardeo"
     reverse_proxy = false
-    redirect_url = "http://localhost:8000/spa_proxy/oauth2/callback"
-    oidc_issuer_url = "https://api.asgardeo.io/t/akumar/oauth2/token"
+    redirect_url = "https://spa.proxy.com/oauth2/callback"
+    oidc_issuer_url = "https://accounts.google.com"
     scope= "openid email"
-    skip_auth_regex="/home|/cart|/static/js/*|/images/*|/api/get|/hospitalDashoard.php|/assets/*"
-    skip_provider_button=false
-
+    skip_auth_regex="/home,/cart,/static/*,/product/*,/api/getProduct,/api/getCustomAttribute,/images/*,/api/get"
+    skip_provider_button=true
+    pass_access_token=true
+    pass_authorization_header=true
+    pass_basic_auth=true
+    pass_user_headers=true
 
   # Custom configuration file: oauth2_proxy.cfg
   #configFile: "/Users/ashokkumar/Desktop/Proxy_Samples/Proxy/oauth2-proxy.cfg"
@@ -131,7 +136,7 @@ service:
   # nodePort: 80
   portNumber: 4443
   # Protocol set on the service
-  appProtocol: https
+  appProtocol: http
   #annotations: {}
   # foo.io/bar: "true"
 
@@ -148,12 +153,12 @@ serviceAccount:
 ingress:
   enabled: true
   className: nginx
-  path: /spa_proxy
+  path: /
   # Only used if API capabilities (networking.k8s.io/v1) allow it
   pathType: ImplementationSpecific
   # Used to create an Ingress record.
   hosts:
-     - mydomain.com
+     - spa.proxy.com
   # Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
   # Warning! The configuration is dependant on your current k8s API version capabilities (networking.k8s.io/v1)
   # extraPaths:
@@ -169,9 +174,9 @@ ingress:
   #   kubernetes.io/ingress.class: nginx
   #   kubernetes.io/tls-acme: "true"
   tls: 
-    - secretName: tls-cert
+    - secretName: tls-cert-proxy
       hosts:
-        - mydomain.com
+        - spa.proxy.com
 
 resources: {}
   # limits:
@@ -199,7 +204,7 @@ priorityClassName: ""
 
 # Host aliases, useful when working "on premise" where (public) DNS resolver does not know about my hosts.
 hostAlias:
-  enabled: true
+  enabled: false
   ip: "127.0.0.1"
   hostname: "mydomain.com"
 
@@ -254,7 +259,7 @@ revisionHistoryLimit: 10
 ## PodDisruptionBudget settings
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
 podDisruptionBudget:
-  enabled: true
+  enabled: false
   minAvailable: 1
 
 # Configure Kubernetes security context for pod
@@ -262,7 +267,7 @@ podDisruptionBudget:
 podSecurityContext: {}
 
 # whether to use http or https
-httpScheme: https
+httpScheme: http
 
 # Additionally authenticate against a htpasswd file. Entries must be created with "htpasswd -B" for bcrypt encryption.
 # Alternatively supply an existing secret which contains the required information.
@@ -318,11 +323,11 @@ redis:
   #   slaveCount: 1
 
 # Enables apiVersion deprecation checks
-checkDeprecation: true
+checkDeprecation: false
 
 metrics:
   # Enable Prometheus metrics endpoint
-  enabled: true
+  enabled: false
   # Serve Prometheus metrics on this port
   port: 44180
   # when service.type is NodePort ...
