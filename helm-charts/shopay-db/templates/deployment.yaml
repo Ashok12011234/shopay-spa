@@ -27,6 +27,10 @@ spec:
       serviceAccountName: {{ include "shopay-db.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: mysql-queries
+          configMap:
+            name: mysql-queries
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -41,19 +45,24 @@ spec:
               value: {{ .Values.env.MYSQL_USER }}
             - name: MYSQL_PASSWORD
               value: {{ .Values.env.MYSQL_PASSWORD }}
+
+          volumeMounts:
+            - name: mysql-queries
+              mountPath: /docker-entrypoint-initdb.d
+
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+          #livenessProbe:
+            #httpGet:
+              #path: /
+              #port: http
+          #readinessProbe:
+            #httpGet:
+              #path: /
+              #port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
