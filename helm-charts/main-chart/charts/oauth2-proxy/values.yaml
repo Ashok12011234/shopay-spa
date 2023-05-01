@@ -36,7 +36,7 @@ config:
   configFile: |-
     email_domains = [ "*" ]
     upstreams = [
-    "http://shopay-fe-spa-frontend.default.svc.cluster.local:80",
+    "http://shopay-fe.default.svc.cluster.local:80",
     "http://shopay-backend.default.svc.cluster.local:3001/api/orders",
     "http://shopay-backend.default.svc.cluster.local:3001/api/offers",
     "http://shopay-backend.default.svc.cluster.local:3001/api/get",
@@ -93,6 +93,9 @@ image:
 # This will default to 4180 if this value is not set and the httpScheme set to http
 # This will default to 4443 if this value is not set and the httpScheme set to https
 #containerPort: 8000
+
+nameOverride: "shopay-proxy"
+fullnameOverride: "shopay-proxy"
 
 extraArgs: {}
 extraEnv: []
