@@ -96,6 +96,7 @@ shopay-db:
     MYSQL_DATABASE: shopay
     MYSQL_USER: user
     MYSQL_PASSWORD: pass
+    MYSQL_TCP_PORT: 3306
 
 shopay-admin:
   fullnameOverride: "shopay-admin"
