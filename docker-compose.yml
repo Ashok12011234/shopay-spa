@@ -42,6 +42,7 @@ services:
       MYSQL_DATABASE: shopay
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
+      MYSQL_TCP_PORT: 3306
     networks:
       - mynetwork
     ports:

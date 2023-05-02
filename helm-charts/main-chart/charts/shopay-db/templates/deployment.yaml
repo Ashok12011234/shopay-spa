@@ -45,6 +45,8 @@ spec:
               value: {{ .Values.env.MYSQL_USER }}
             - name: MYSQL_PASSWORD
               value: {{ .Values.env.MYSQL_PASSWORD }}
+            - name: MYSQL_TCP_PORT
+              value: "{{ .Values.env.MYSQL_TCP_PORT }}"
 
           volumeMounts:
             - name: mysql-queries
@@ -57,12 +59,12 @@ spec:
               protocol: TCP
           readinessProbe:
             tcpSocket:
-              port: 3306
+              port: {{ .Values.env.MYSQL_TCP_PORT }}
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             tcpSocket:
-              port: 3306
+              port: {{ .Values.env.MYSQL_TCP_PORT }}
             initialDelaySeconds: 10
             periodSeconds: 20
           resources:
