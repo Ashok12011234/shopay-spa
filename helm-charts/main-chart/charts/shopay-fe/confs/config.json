@@ -1,3 +1,0 @@
-{
-    "httpProxy": "{{ .Values.app.configs.httpProxy }}"
-  }
