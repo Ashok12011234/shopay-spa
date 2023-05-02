@@ -15,7 +15,7 @@ services:
       - --http-address
       - :8000
       - --upstream
-      - http://myapp:80,http://backend:3001/api/orders,http://backend:3001/api/offers,http://backend:3001/api/get,http://backend:3001/api/getProduct,http://backend:3001/api/getCustomAttribute,http://api:4001/secured_api
+      - http://myapp,http://backend:3001/api/orders,http://backend:3001/api/offers,http://backend:3001/api/get,http://backend:3001/api/getProduct,http://backend:3001/api/getCustomAttribute,http://api:4001/secured_api
     environment:
       OAUTH2_PROXY_CLIENT_ID: "880386795823-olrdr7047el8skubcoaa02avc13lql6b.apps.googleusercontent.com"
       OAUTH2_PROXY_CLIENT_SECRET: "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"
@@ -45,8 +45,8 @@ services:
       MYSQL_TCP_PORT: 3306
     networks:
       - mynetwork
-    ports:
-      - "3308:3306"
+    expose:
+      - 3306
     volumes:
       - ./queries.sql:/queries.sql
     command: ["--init-file", "/queries.sql"]
@@ -60,8 +60,8 @@ services:
   
   backend:
     build: ./backend
-    ports:
-      - "3001:3001"
+    expose:
+      - 3001
     environment:
       HOST : db
       PORT : 3306
@@ -78,8 +78,8 @@ services:
   
   myapp:
     build: ./frontend
-    ports:
-      - "3000:80"
+    expose:
+      - 80
     environment:
       HTTP_PROXY : "http://localhost:8000"
     networks:
@@ -89,8 +89,8 @@ services:
      
   api:
     build: ./api
-    ports:
-      - "4001:4001"
+    expose:
+      - 4001
     networks:
       - mynetwork  
       
