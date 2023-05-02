@@ -81,9 +81,5 @@ tolerations: []
 
 affinity: {}
 
-app:
-  configs:
-    httpProxy: ""
-
 env:
   HTTP_PROXY: https://spa.proxy.com
