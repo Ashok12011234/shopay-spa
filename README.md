@@ -10,7 +10,7 @@ This is the sample web application to demonstrate how to protect Single Page App
 
 1. A running [Kubernetes cluster](https://kubernetes.io/docs/setup/). You can use [Minikube](https://minikube.sigs.k8s.io/docs/start/) or [Rancher Desktop](https://docs.rancherdesktop.io/getting-started/installation/) or similar software to run it on the local machine.
 2. [Helm](https://helm.sh/docs/intro/install/) and [Kubernetes client](https://kubernetes.io/docs/tasks/tools/#kubectl) should be installed.
-3. [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/deploy/) should be installed. If you are using Minikube, you can install ingress by running ```bash minikube addons enable ingress``` command. If you are using Rancher Desktop, you can install ingress by following steps 1,2, and 3 in the [guide](https://docs.rancherdesktop.io/how-to-guides/setup-NGINX-Ingress-Controller/).
+3. [NGINX Ingress Controller](https://kubernetes.github.io/ingress-nginx/deploy/) should be installed. If you are using Minikube, you can install ingress by running ```minikube addons enable ingress``` command. If you are using Rancher Desktop, you can install ingress by following steps 1,2, and 3 in the [guide](https://docs.rancherdesktop.io/how-to-guides/setup-NGINX-Ingress-Controller/).
 4. Register for an OpenID Connect single-page app following this [guide](https://wso2.com/asgardeo/docs/guides/applications/register-single-page-app/#register-the-app). You need to add https://spa.proxy.com/oauth2/callback as an authorized redirect URL. 
 
 ## Steps to deploy the sample application
