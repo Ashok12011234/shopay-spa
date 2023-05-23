@@ -36,13 +36,13 @@ config:
   configFile: |-
     email_domains = [ "*" ]
     upstreams = [
-    "http://shopay-fe.default.svc.cluster.local:80",
-    "http://shopay-backend.default.svc.cluster.local:3001/api/orders",
-    "http://shopay-backend.default.svc.cluster.local:3001/api/offers",
-    "http://shopay-backend.default.svc.cluster.local:3001/api/get",
-    "http://shopay-backend.default.svc.cluster.local:3001/api/getProduct",
-    "http://shopay-backend.default.svc.cluster.local:3001/api/getCustomAttribute",
-    "http://shopay-api.default.svc.cluster.local:4001/secured_api"]
+    "http://shopay-fe.shopay.svc.cluster.local:80",
+    "http://shopay-backend.shopay.svc.cluster.local:3001/api/orders",
+    "http://shopay-backend.shopay.svc.cluster.local:3001/api/offers",
+    "http://shopay-backend.shopay.svc.cluster.local:3001/api/get",
+    "http://shopay-backend.shopay.svc.cluster.local:3001/api/getProduct",
+    "http://shopay-backend.shopay.svc.cluster.local:3001/api/getCustomAttribute",
+    "http://shopay-api.shopay.svc.cluster.local:4001/secured_api"]
     provider = "oidc"
     provider_display_name="Asgardeo"
     reverse_proxy = false

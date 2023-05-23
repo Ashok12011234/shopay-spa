@@ -87,4 +87,4 @@ env:
   USER : root
   PASSWORD : pass
   DATABASE : shopay
-  URL : http://shopay-proxy.default.svc.cluster.local:4443/secured_api
+  URL : http://shopay-proxy.shopay.svc.cluster.local:4443/secured_api
