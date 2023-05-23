@@ -58,6 +58,7 @@ Add the following records to the host file on your local machine. Replace the ``
 
 ## Running the sample
 
+
 Navigate to the ```helm-charts/main-chart``` location from the project directory and run the following command to install the sample app.
 
 ```bash
