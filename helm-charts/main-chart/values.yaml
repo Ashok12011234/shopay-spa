@@ -22,8 +22,6 @@ oauth2-proxy:
       "http://shopay-backend.default.svc.cluster.local:3001/api/getCustomAttribute",
       "http://shopay-api.default.svc.cluster.local:4001/secured_api"]
       provider = "oidc"
-      provider_display_name="Asgardeo"
-      reverse_proxy = false
       redirect_url = "https://spa.proxy.com/oauth2/callback"
       oidc_issuer_url = "https://accounts.google.com"
       scope= "openid email"
