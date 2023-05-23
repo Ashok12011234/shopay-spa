@@ -58,18 +58,29 @@ Add the following records to the host file on your local machine. Replace the ``
 
 ## Running the sample
 
-Navigate to the ```helm-charts``` location from the project directory and run the following command to install the sample app.
+
+Navigate to the ```helm-charts/main-chart``` location from the project directory and run the following command to install the sample app.
 
 ```bash
-helm install main-chart \
+helm dependency update
+```
+
+```bash
+helm upgrade --install \
 --set oauth2-proxy.config.clientID=<client_id> \
 --set oauth2-proxy.config.clientSecret=<client_secret> \
 --set oauth2-proxy.extraArgs.oidc-issuer-url=<issuer_url> \
-main-chart 
+shopay . -n shopay --create-namespace
 ```
 
 Note that you can get ```client_id``` and ```client_secret``` in the Protocol tab and ```issuer_url``` in the Info tab of your application in the Asgardeo console.
 
 If you are using the provided self-signed certificate then import the CA certificate in ```helm-charts/oauth2-proxy/self-signed-cert/selfsignCA.crt ``` location to the browser.
+
+Run the following command and check whether the pods are in a running state.
+
+```bash
+kubectl get pods -n shopay
+```
 
 You can now access the sample application using this [URL](https://sample-app.local).
