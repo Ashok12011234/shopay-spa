@@ -27,7 +27,7 @@ oauth2-proxy:
       "http://shopay-backend.shopay.svc.cluster.local:3001/api/getCustomAttribute",
       "http://shopay-api.shopay.svc.cluster.local:4001/secured_api"]
       provider = "oidc"
-      redirect_url = "https://spa.proxy.com/oauth2/callback"
+      redirect_url = "https://sample-app.local/oauth2/callback"
       oidc_issuer_url = ""
       scope= "openid email"
       skip_auth_regex="/home,/cart,/static/*,/product/*,/api/getProduct,/api/getCustomAttribute,/images/*,/api/get"
@@ -48,12 +48,12 @@ oauth2-proxy:
     path: /
     pathType: ImplementationSpecific
     hosts:
-      - spa.proxy.com
+      - sample-app.local
     labels: {}
     tls: 
-      - secretName: tls-cert-proxy
+      - secretName: tls-cert-spa-app
         hosts:
-          - spa.proxy.com
+          - sample-app.local
 
 shopay-fe:
   image:
@@ -68,7 +68,7 @@ shopay-fe:
     port: 80
 
   env:
-    HTTP_PROXY: https://spa.proxy.com
+    HTTP_PROXY: https://sample-app.local
 
 shopay-backend:
   image:

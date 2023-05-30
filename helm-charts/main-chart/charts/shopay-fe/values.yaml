@@ -82,4 +82,4 @@ tolerations: []
 affinity: {}
 
 env:
-  HTTP_PROXY: https://spa.proxy.com
+  HTTP_PROXY: https://sample-app.localcom
