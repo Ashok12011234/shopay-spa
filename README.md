@@ -83,4 +83,4 @@ Run the following command and check whether the pods are in a running state.
 kubectl get pods -n shopay
 ```
 
-You can now access the sample application using this [URL](https://sample-app.local).
+You can now access the sample application using this [URL](https://sample-app.local/home).

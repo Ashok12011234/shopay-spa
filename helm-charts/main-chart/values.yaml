@@ -1,4 +1,9 @@
 oauth2-proxy:
+  image:
+    repository: "quay.io/oauth2-proxy/oauth2-proxy"
+    tag: ""
+    pullPolicy: "IfNotPresent"
+
   fullnameOverride: "shopay-proxy"
 
   # Oauth client configuration specifics
@@ -6,9 +11,9 @@ oauth2-proxy:
     # Add config annotations
     annotations: {}
     # OAuth client ID
-    clientID: "880386795823-olrdr7047el8skubcoaa02avc13lql6b.apps.googleusercontent.com"
+    clientID: ""
     # OAuth client secret
-    clientSecret: "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"
+    clientSecret: ""
     cookieSecret: "5S5wk5A5O6MkKfZZ"
     cookieName: "oauth2_proxy"
     configFile: |-
@@ -22,8 +27,8 @@ oauth2-proxy:
       "http://shopay-backend.shopay.svc.cluster.local:3001/api/getCustomAttribute",
       "http://shopay-api.shopay.svc.cluster.local:4001/secured_api"]
       provider = "oidc"
-      redirect_url = "https://spa.proxy.com/oauth2/callback"
-      oidc_issuer_url = "https://accounts.google.com"
+      redirect_url = "https://sample-app.local/oauth2/callback"
+      oidc_issuer_url = ""
       scope= "openid email"
       skip_auth_regex="/home,/cart,/static/*,/product/*,/api/getProduct,/api/getCustomAttribute,/images/*,/api/get"
       skip_provider_button=true
@@ -43,14 +48,19 @@ oauth2-proxy:
     path: /
     pathType: ImplementationSpecific
     hosts:
-      - spa.proxy.com
+      - sample-app.local
     labels: {}
     tls: 
-      - secretName: tls-cert-proxy
+      - secretName: tls-cert-spa-app
         hosts:
-          - spa.proxy.com
+          - sample-app.local
 
 shopay-fe:
+  image:
+    repository: ashok1201/shopay-fe
+    pullPolicy: IfNotPresent
+    tag: "1.0"
+
   fullnameOverride: "shopay-fe"
 
   service:
@@ -58,9 +68,14 @@ shopay-fe:
     port: 80
 
   env:
-    HTTP_PROXY: https://spa.proxy.com
+    HTTP_PROXY: https://sample-app.local
 
 shopay-backend:
+  image:
+    repository: ashok1201/shopay-backend
+    pullPolicy: IfNotPresent
+    tag: "1.0"
+
   fullnameOverride: "shopay-backend"
 
   service:
@@ -76,6 +91,11 @@ shopay-backend:
     URL : http://shopay-proxy.shopay.svc.cluster.local:4443/secured_api
 
 shopay-api:
+  image:
+    repository: ashok1201/shopay-api
+    pullPolicy: IfNotPresent
+    tag: "1.0"
+
   fullnameOverride: "shopay-api"
 
   service:
@@ -83,6 +103,11 @@ shopay-api:
     port: 4001
   
 shopay-db:
+  image:
+    repository: mysql
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
   fullnameOverride: "shopay-db"
 
   service:
@@ -97,6 +122,11 @@ shopay-db:
     MYSQL_TCP_PORT: 3306
 
 shopay-admin:
+  image:
+    repository: adminer
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
   fullnameOverride: "shopay-admin"
 
   service:
