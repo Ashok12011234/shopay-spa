@@ -8,9 +8,9 @@ config:
   # Add config annotations
   annotations: {}
   # OAuth client ID
-  clientID: "880386795823-olrdr7047el8skubcoaa02avc13lql6b.apps.googleusercontent.com"
+  clientID: ""
   # OAuth client secret
-  clientSecret: "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"
+  clientSecret: ""
   # Create a new secret with the following command
   # openssl rand -base64 32 | head -c 32 | base64
   # Use an existing secret for OAuth2 credentials (see secret.yaml for required fields)
@@ -44,10 +44,9 @@ config:
     "http://shopay-backend.shopay.svc.cluster.local:3001/api/getCustomAttribute",
     "http://shopay-api.shopay.svc.cluster.local:4001/secured_api"]
     provider = "oidc"
-    provider_display_name="Asgardeo"
     reverse_proxy = false
     redirect_url = "https://spa.proxy.com/oauth2/callback"
-    oidc_issuer_url = "https://accounts.google.com"
+    oidc_issuer_url = ""
     scope= "openid email"
     skip_auth_regex="/home,/cart,/static/*,/product/*,/api/getProduct,/api/getCustomAttribute,/images/*,/api/get"
     skip_provider_button=true
